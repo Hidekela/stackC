@@ -6,7 +6,9 @@ Stack manager library in C
 
 * Include the header file ``"stackC.h"`` in your source code
 
+
     #include "stackC.h"
+
 
 * When you are about to compile
 
@@ -14,7 +16,9 @@ Stack manager library in C
 
     - with gcc, if ``libstackC.a`` is in the current directory (otherwise, write the whole path)
 
+
     gcc -Wall -O2 main.c -s libstackC.a
+
 
 # Use and Examples
 
