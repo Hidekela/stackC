@@ -1,8 +1,10 @@
 # StackC
 
-Stack manager library in C
+_Stack manager library in C_
 
-# Getting started
+![stack.png](stack.png)
+
+## Getting started
 
 * Include the header file `"stackC.h"` in your source code
 
@@ -20,18 +22,18 @@ Stack manager library in C
     gcc -Wall -O2 main.c -s libstackC.a
 ```
 
-# Use and Examples
+## Use and Examples
 
 You will find in the header file how to use each function. 
 Go to [example directory](example) to see usage examples
 
-# Compilation of the library
+## Compilation of the library
 
 If you to compile again the library, delete `libstackC.a` and run the following command
 
     gcc -Wall -O2  -c stackC.c -o stackC.o
     ar -r -s libstackC.a stackC.o
 
-# License
+## License
 
 Project under [MIT LICENSE](LICENSE-MIT)
