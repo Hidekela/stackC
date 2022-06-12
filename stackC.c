@@ -24,8 +24,8 @@
  *      THE SOFTWARE.
  * 
  * 
- * @version 0.1
- * @date 2022-06-10
+ * @version 1.0
+ * @date 2022-06-12
  * 
  * @copyright Copyright (c) 2022
  * 
@@ -148,8 +148,7 @@ void stack_pop(Stack *stack)
  *  (allocation), add of the data items (fill properties) and call stack_pushData() in the end.
  * 
  *  For example: 
- *      #define S_DATA_LENGTH 20 
- *      bool stack_push(Stack *stack, int age, const char name) 
+ *      bool stack_push(Stack *stack, int age, const char *name) 
  *  where data is an instance of a structure containing 'age' and 'name': 
  *      struct{int age, char name[20]}
  * 
@@ -158,7 +157,7 @@ void stack_pop(Stack *stack)
  * @return true if the operation succeed
  * @return false 
  */
-bool stack_pushData(Stack *stack, S_DATA_TYPE *data)
+bool stack_pushData(Stack *stack, void *data)
 {
     if(!stack_exist(stack)) // Should be warning
     {
@@ -191,23 +190,25 @@ bool stack_pushData(Stack *stack, S_DATA_TYPE *data)
  *   and freeing of the data, so never use this function for the concerned stack.
  * 
  * @param stack the stack
- * @return S_DATA_TYPE* pointer of the new data
+ * @param sizeofDataType the size of the data type
+ * @param numberofData the number of data (length of the array if it is an array, 1 otherwise)
+ * @return void* pointer of the new data
  */
-S_DATA_TYPE* stack_createData(Stack *stack)
+void* stack_createData(Stack *stack, size_t sizeofDataType, unsigned int numberofData)
 {
     if(!stack->dataManagement)
         stack->dataManagement = true;
 
-    return malloc(sizeof(S_DATA_TYPE)*S_DATA_LENGTH);
+    return malloc(sizeof(sizeofDataType)*numberofData);
 }
 
 /**
  * @brief Return the first element of the stack
  * 
  * @param stack the stack
- * @return S_DATA_TYPE* the pointer to the first data
+ * @return void* the pointer to the first data
  */
-S_DATA_TYPE* stack_getFirst(Stack *stack)
+void* stack_getFirst(Stack *stack)
 {
     return stack->current->data;
 }

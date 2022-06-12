@@ -3,15 +3,6 @@
  * @author Hidekela (rhidekela@gmail.com)
  * @brief Stack manager library in C
  * 
- *                                       TO START
- *      
- *      Define S_DATA_TYPE and S_DATA_LENGTH respectively as a variable type that you want 
- *      to store in the stack and as the legth of the data if it is an array (1 if not).
- *      The type of the data stored in the stack cannot be changed durring the whole program.
- *      If you want to have another stack with a different type of data, implement the stack
- *      yourself or migrate to another language such as C++, python,... which manage stacks.
- * 
- * 
  *                                      MIT LICENSE
  *
  *      Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -33,8 +24,8 @@
  *      THE SOFTWARE.
  * 
  * 
- * @version 0.1
- * @date 2022-06-10
+ * @version 1.0
+ * @date 2022-06-12
  * 
  * @copyright Copyright (c) 2022
  * 
@@ -45,30 +36,10 @@
 
 #include <stdbool.h>
 
-/////////////////////////////////////////////   // |
-/**                                             // |
- *   You can start the change from here         // |
- *                                              // |
- *   __________________________________  */     // |
-                                                // |        define if it is not yet S_DATA_TYPE 
-    #ifndef S_DATA_TYPE                         // |        as the data type you want to store 
-    #define S_DATA_TYPE int                     // |        in the stack :
-    #endif //S_DATA_TYPE                        // |        
-                                                // |        int, char*, double, float, char**
-    #ifndef S_DATA_LENGHT                       // |        struct Node, struct Bidule*, etc...
-    #define S_DATA_LENGTH 1                     // |
-    #endif //S_DATA_LENGTH                      // |
-                                                // |        and S_DATA_LENGTH as the length of
-/**  __________________________________         // |        the data if it's an array, 1 if not
- *                                              // |        
- *       Stop the change after here             // |        
- *                                       */     // |        
-/////////////////////////////////////////////   // |        
-
 typedef struct _Cell Cell;
 struct _Cell
 {
-    S_DATA_TYPE *data;
+    void *data;
     Cell *next;
 };
 
@@ -81,13 +52,88 @@ struct _Stack
     /* Add another properties: length, etc... */
 };
 
+/**
+ * @brief Check the existence of a stack
+ * 
+ * @param stack the stack
+ * @return true if exist
+ * @return false 
+ */
 bool stack_exist(Stack *stack);
+
+/**
+ * @brief Init the stack
+ * 
+ * @param stack the stack
+ * @return Stack* a pointer to the stack (needed if you want to allocate the stack dynamically,
+ *  and if it is, then you must quit the stack by stack_quit() in order to free it in the end)
+ */
 Stack* stack_init(Stack *stack);
+
+/**
+ * @brief Check if the stack doesn't contain anything
+ * 
+ * @param stack the stack
+ * @return true if the stack is empty
+ * @return false 
+ */
 bool stack_isEmpty(Stack *stack);
+
+/**
+ * @brief Destroy the stack
+ * 
+ * @param stack the stack
+ * @return Stack* NULL (needed if you allocated dynamically the stack and want
+ *  to secure the pointer to the stack)
+ */
 Stack* stack_quit(Stack *stack);
+
+/**
+ * @brief Delete the first element of the stack. Warning! If you have used stack_createData() and 
+ *  the type of your data structure contain dynamically allocated variables, free those variables
+ *  before using this function
+ * 
+ * @param stack the stack
+ */
 void stack_pop(Stack *stack);
-bool stack_pushData(Stack *stack, S_DATA_TYPE *data);
-S_DATA_TYPE* stack_createData(Stack *stack);
-S_DATA_TYPE* stack_getFirst(Stack *stack);
+
+/**
+ * @brief Add an element in the first of the stack. The data of element must be already
+ *  dynamically allocated (by stack_createData() or malloc()) and filled by yourself.
+ *  Note that if you don't manage yourself the data allocation and freeing, you must use
+ *  stack_createData() in order to tell the library to manage it (allocation and freeing).
+ *  You can create a new function of push costumized in your need for creation of data
+ *  (allocation), add of the data items (fill properties) and call stack_pushData() in the end.
+ * 
+ *  For example: 
+ *      bool stack_push(Stack *stack, int age, const char *name) 
+ *  where data is an instance of a structure containing 'age' and 'name': 
+ *      struct{int age, char name[20]}
+ * 
+ * @param stack the stack
+ * @param data the data of the new element
+ * @return true if the operation succeed
+ * @return false 
+ */
+bool stack_pushData(Stack *stack, void *data);
+
+/**
+ * @brief Allocate (dynamically) memory spaces for a new data. Warning! If you manage yourself the allocation
+ *   and freeing of the data, so never use this function for the concerned stack.
+ * 
+ * @param stack the stack
+ * @param sizeofDataType the size of the data type
+ * @param numberofData the number of data (length of the array if it is an array, 1 otherwise)
+ * @return void* pointer of the new data
+ */
+void* stack_createData(Stack *stack, size_t sizeofDataType, unsigned int numberofData);
+
+/**
+ * @brief Return the first element of the stack
+ * 
+ * @param stack the stack
+ * @return void* the pointer to the first data
+ */
+void* stack_getFirst(Stack *stack);
 
 #endif // STACK_H_INCLUDED

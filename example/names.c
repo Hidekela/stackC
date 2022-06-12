@@ -1,9 +1,5 @@
 #include <stdio.h>
 #include <string.h>
-
-#define S_DATA_TYPE char // I will store names
-#define S_DATA_LENGHT 20 // So it's char[20]
-
 #include "../stackC.h"
 
 // Prototypes of some functions
@@ -25,12 +21,12 @@ int main()
     puts("Let's show names:\n");
     while(!stack_isEmpty(&stackNames))
     {
-        printf("%s\n",stack_getFirst(&stackNames));
+        printf("%s\n",(char*) stack_getFirst(&stackNames));
         stack_pop(&stackNames);
     }
 
     stack_push(&stackNames,"Saitama");
-    printf("%s\n",stack_getFirst(&stackNames));
+    printf("%s\n",(char*) stack_getFirst(&stackNames));
 
     stack_push(&stackNames,"Garou");
     stack_push(&stackNames,"King");
@@ -44,7 +40,7 @@ int main()
 
 bool stack_push(Stack *stack, const char *name)
 {
-    S_DATA_TYPE *newName = stack_createData(stack);
+    char *newName = stack_createData(stack,sizeof(char),20); // Name should at most 19 characters here
     strcpy(newName,name);
     return stack_pushData(stack,newName);
 }
