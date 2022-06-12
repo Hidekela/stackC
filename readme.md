@@ -2,9 +2,9 @@
 
 Stack manager library in C
 
-# Installation
+# Get started
 
-* Define S_DATA_TYPE into a variable type that you want to store in the stack:
+* Define S_DATA_TYPE as a variable type that you want to store in the stack:
 
     - before including ``"stackC.h"``
 
@@ -16,7 +16,7 @@ Stack manager library in C
         #define S_DATA_TYPE int // Or something else
         #endif //S_DATA_TYPE
 
-* Define S_DATA_LENGTH into the legth of the data if it is an array (1 if not):
+* Define S_DATA_LENGTH as the legth of the data if it is an array (1 if not):
 
     - before including ``"stackC.h"``
 
@@ -40,7 +40,7 @@ Stack manager library in C
 
         gcc -Wall -O2 main.c -s libstackC.a
 
-# Documentation and Sample
+# Use and Example
 
 Go to [example directory](example)
 
@@ -53,7 +53,7 @@ If you to compile again the library, delete ``libstackC.a`` and run the followin
 
 # Limitation
 
-The type of the data stored in the stack cannot be changed durring the whole program. If you want to have another stack with a different type of data, you should implement the stack yourself or migrate to another language such as C++, python,... which manage stacks.
+The type of data stored in the stack cannot be changed throughout the program. If you want to have another stack with a different data type, you have to implement the stack yourself or migrate to another language such as C++, python,... which manages stacks.
 
 # License
 
