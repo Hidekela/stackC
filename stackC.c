@@ -128,13 +128,13 @@ void stack_pop(Stack *stack)
     if(stack_isEmpty(stack))
         return;
 
-    Cell *toDelete = stack->current;
+    Stack_Cell *toDelete = stack->current;
 
     /* Free the data if it should be */
     if(stack->dataManagement)
         free(toDelete->data);
 
-    /* Free the cell */
+    /* Free the Stack_Cell */
     stack->current = stack->current->next;
     free(toDelete);
 }
@@ -165,22 +165,22 @@ bool stack_pushData(Stack *stack, void *data)
         exit(EXIT_FAILURE);
     }
 
-    /* Create a new cell */
-    Cell *newCell = malloc(sizeof(Cell));
+    /* Create a new Stack_Cell */
+    Stack_Cell *newStack_Cell = malloc(sizeof(Stack_Cell));
 
-    /* If the creation of cell fails */
-    if(newCell == NULL)
+    /* If the creation of Stack_Cell fails */
+    if(newStack_Cell == NULL)
     {
         if(stack->dataManagement)
             free(data);
         return false;
     }
 
-    /* Fill the properties of the cell */
-    newCell->data = data;
-    newCell->next = stack->current;
+    /* Fill the properties of the Stack_Cell */
+    newStack_Cell->data = data;
+    newStack_Cell->next = stack->current;
 
-    stack->current = newCell;
+    stack->current = newStack_Cell;
 
     return true;
 }

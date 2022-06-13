@@ -36,17 +36,17 @@
 
 #include <stdbool.h>
 
-typedef struct _Cell Cell;
-struct _Cell
+typedef struct _Stack_Cell Stack_Cell;
+struct _Stack_Cell
 {
     void *data;
-    Cell *next;
+    Stack_Cell *next;
 };
 
 typedef struct _Stack Stack;
 struct _Stack
 {
-    Cell *current;
+    Stack_Cell *current;
     bool isDynamicallyAllocated;
     bool dataManagement; // True if this lib should manage the allocation of the data
     /* Add another properties: length, etc... */
